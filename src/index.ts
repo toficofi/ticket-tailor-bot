@@ -51,7 +51,7 @@ async function process_ticket(event_id: string, ticket: any) {
 
 async function main() {
   try {
-    await fastify.listen({ port });
+    await fastify.listen({ port, host: process.env.HOST ?? "localhost" });
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
