@@ -7,6 +7,7 @@ import { get_ticket_limit_and_total } from "./lib/ticket-tailor";
 import { notify_discord } from "./lib/discord";
 const fastify = Fastify({
   logger: true,
+  trustProxy: true
 });
 
 fastify.get("/", async function handler(request, reply) {
