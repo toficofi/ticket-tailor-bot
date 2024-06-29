@@ -9,6 +9,9 @@ const fastify = Fastify({
   logger: true,
 });
 
+fastify.get("/", async function handler(request, reply) {
+  return {};
+});
 
 fastify.post("/webhook/ticket-tailor", async function handler(request, reply) {
   const body = request.body as any;
@@ -37,12 +40,13 @@ async function process_ticket(event_id: string, ticket: any) {
     ticket_type_id
   );
 
-  const name = ticket.description
+  const name = ticket.description;
 
-  console.log(`Ticket purchase data:\nName: ${name}\nLimit: ${limit}\nTotal: ${total}`)
+  console.log(
+    `Ticket purchase data:\nName: ${name}\nLimit: ${limit}\nTotal: ${total}`
+  );
   await notify_discord({ name, total, limit });
 }
-
 
 async function main() {
   try {
