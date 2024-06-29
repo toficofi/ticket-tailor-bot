@@ -1,8 +1,7 @@
 const basicCreds = btoa(`${process.env.TICKET_TAILOR_API_KEY}:`);
 
-export async function get_ticket_limit_and_total(
+export async function get_ticket_total(
   event_id: string,
-  ticket_type_id: string
 ) {
   const url = `https://api.tickettailor.com/v1/events/${event_id}`;
   const headers = {
@@ -18,20 +17,12 @@ export async function get_ticket_limit_and_total(
     }
 
     const data: any = await response.json();
-    const ticketsTypes = data.ticket_types;
 
-    for (const ticketType of ticketsTypes) {
-      if (ticketType.id === ticket_type_id) {
-        return {
-          limit: ticketType.quantity_total,
-          total: ticketType.quantity_issued,
-        };
-      }
+    return {
+      total: data.total_issued_tickets,
     }
-
-    throw new Error(`Ticket type ${ticket_type_id} for event ${event_id} not found`);
   } catch (error) {
-    console.error("Failed to fetch ticket limit and total:", error);
+    console.error("Failed to fetch ticket total:", error);
     throw error;
   }
 }

@@ -7,7 +7,7 @@ export async function notify_discord(data: TicketPurchaseData) {
   }
 
   const message = {
-    content: `🎫  Sold a **${data.name}** ticket! ${data.total}/${data.total}`,
+    content: `🎫  Sold a **${data.name}** ticket! Total: ${data.total}`,
   };
 
   fetch(webhookUrl, {
